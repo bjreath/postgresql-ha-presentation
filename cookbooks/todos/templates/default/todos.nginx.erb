@@ -1,0 +1,33 @@
+upstream todos_upstream_server {
+  server unix:/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 80 default;
+
+  server_name localhost;
+  root /vagrant/todos/public;
+
+  client_max_body_size 4G;
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Scheme $scheme;
+    proxy_set_header Host $http_host;
+
+    server_name_in_redirect off;
+    proxy_redirect   off;
+
+    if (!-f $request_filename) {
+      proxy_pass http://todos_upstream_server;
+      break;
+    }
+  }
+
+  error_page 500 502 503 504 /500.html;
+  location = /500.html {
+    root /vagrant/todos/public;
+  }
+}

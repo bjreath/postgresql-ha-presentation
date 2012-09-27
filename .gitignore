@@ -1,0 +1,5 @@
+.DS_Store
+.vagrant
+/todos/.powenv
+/todos/public/assets
+/todos/vendor/bundle

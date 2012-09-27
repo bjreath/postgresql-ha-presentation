@@ -1,0 +1,23 @@
+God.watch do |w|
+  w.name = "postgresql"
+  w.group = "data"
+  w.interval = 30.seconds
+
+  w.start = "service postgresql start"
+  w.stop = "service postgresql stop"
+  w.restart = "service postgresql restart"
+
+  w.pid_file = "/usr/local/pgsql/data/postmaster.pid"
+
+  w.start_grace = 10.seconds
+  w.restart_grace = 10.seconds
+
+  w.behavior(:clean_pid_file)
+
+  w.start_if do |start|
+    start.condition(:process_running) do |c|
+      c.interval = 5.seconds
+      c.running = false
+    end
+  end
+end

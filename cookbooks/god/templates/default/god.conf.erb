@@ -1,0 +1,15 @@
+God.load "/etc/god/conf.d/restart_file_touched.god"
+God.load "/etc/god/conf.d/*.god"
+
+God::Contacts::Email.defaults do |d|
+  d.from_email = 'network.operations.center@ccisystems.com'
+  d.from_name = 'God'
+  d.delivery_method = :smtp
+  d.server_host = "exchange.ccidomain.net",
+  d.server_domain = "ccidomain.net"
+end
+
+God.contact(:email) do |c|
+  c.name = 'dev'
+  c.to_email = 'dev@ccisystems.com'
+end

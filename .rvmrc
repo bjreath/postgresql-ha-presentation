@@ -1,0 +1,3 @@
+rvm use ruby-1.9.3@vagrant-postgresql --create
+rvm_project_rvmrc_default=1
+rvm env -- [ruby]@[gemset] > todos/.powenv

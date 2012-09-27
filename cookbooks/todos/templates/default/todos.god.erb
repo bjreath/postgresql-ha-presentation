@@ -1,0 +1,41 @@
+current_path = "/vagrant/todos"
+pid_file = "/vagrant/todos/tmp/pids/unicorn.pid"
+
+God.watch do |w|
+  w.name = "vagrant"
+  w.group = "web"
+
+  w.uid = "vagrant"
+  w.gid = "vagrant"
+  w.interval = 30.seconds
+
+  w.dir = "#{current_path}"
+  w.log = "#{current_path}/log/god.log"
+  w.pid_file = pid_file
+
+  w.env = {
+    'PATH' => '/usr/local/bin:/bin:/usr/bin',
+    'RAILS_ENV' => "<%= @environment %>"
+  }
+
+  w.start = "bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E <%= @environment %>"
+  w.stop = "kill -QUIT `cat #{pid_file}`"
+  w.restart = "kill -USR2 `cat #{pid_file}`"
+
+  w.start_grace = 10.seconds
+  w.restart_grace = 10.seconds
+
+  w.behavior(:clean_pid_file)
+
+  w.start_if do |start|
+    start.condition(:process_running) do |c|
+      c.running = false
+    end
+  end
+
+  w.restart_if do |restart|
+    restart.condition(:restart_file_touched) do |c|
+      c.restart_file = File.join(current_path, 'tmp', 'restart.txt')
+    end
+  end
+end
