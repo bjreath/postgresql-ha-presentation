@@ -25,11 +25,11 @@ bash "precompile-assets" do
   not_if "test -d #{current_path}/public/assets" # Not really good
 end
 
-bash "migrate-database" do
-  cwd current_path
-  user "vagrant"
-  code "RAILS_ENV=production bundle exec rake db:create db:migrate"
-end
+# bash "migrate-database" do
+#   cwd current_path
+#   user "vagrant"
+#   code "RAILS_ENV=production bundle exec rake db:create db:migrate"
+# end
 
 monitor "todos" do
   source "todos.god.erb"

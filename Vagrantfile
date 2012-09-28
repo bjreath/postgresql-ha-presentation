@@ -13,7 +13,7 @@ Vagrant::Config.run do |config|
 
       master_chef.add_recipe 'ruby'
       master_chef.add_recipe 'god'
-      master_chef.add_recipe 'postgresql'
+      master_chef.add_recipe 'postgresql::master'
     end
   end
 
@@ -26,6 +26,7 @@ Vagrant::Config.run do |config|
 
       standby_chef.add_recipe 'ruby'
       standby_chef.add_recipe 'god'
+      standby_chef.add_recipe 'postgresql::standby'
     end
   end
 

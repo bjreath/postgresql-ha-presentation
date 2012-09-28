@@ -1,1 +1,22 @@
-<p>Hello World</p>
+<h1>Tasks</h1>
+
+<div id='tasks'>
+  <%- @tasks.each do |task| %>
+
+    <div class='task'>
+      <%= task.description %>
+      <span class='complete'>
+        <%= link_to 'x', task, method: :delete %>
+      </span>
+    </div>
+
+  <%- end %>
+</div>
+
+<hr />
+
+<h1>New Task</h1>
+<%= form_for Task.new do |form| %>
+  <%= form.text_field :description %>
+  <%= form.submit 'Save' %>
+<%- end %>

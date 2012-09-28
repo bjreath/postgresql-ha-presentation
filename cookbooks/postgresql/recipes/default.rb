@@ -24,8 +24,4 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-case node.platform
-when "ubuntu","debian"
-  include_recipe "postgresql::client"
-end
-include_recipe "postgresql::install"
+include_recipe "postgresql::master"
