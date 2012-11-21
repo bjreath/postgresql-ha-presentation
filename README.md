@@ -1,3 +1,9 @@
+# PostgreSQL HA
+
+https://speakerdeck.com/bjreath/postgresql-ha
+
+## Command Reference
+
 * Install master and slave servers
 * Enable WAL archiving on the master server
 
