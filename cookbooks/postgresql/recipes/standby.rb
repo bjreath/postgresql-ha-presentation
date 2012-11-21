@@ -24,3 +24,12 @@ template "/etc/postgresql/9.1/main/postgresql.conf" do
   mode 0644
   notifies :restart, "service[postgresql]"
 end
+
+# template "/var/lib/postgresql/9.1/main/recovery.conf" do
+#   source "recovery.conf.erb"
+#   owner "postgres"
+#   group "postgres"
+#   backup false
+#   mode 0644
+#   notifies :restart, "service[postgresql]"
+# end
